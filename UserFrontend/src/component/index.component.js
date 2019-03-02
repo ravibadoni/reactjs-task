@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import TableRow from './TableRow';
+import Pagination from './pagination.component';
 
 export default class Index extends Component {
     constructor(props) {
@@ -29,6 +30,14 @@ export default class Index extends Component {
         return (
             <div>
                 <h3 align="center">Products List</h3>
+                <div className="d-flex flex-row py-4 align-items-center">
+                    <Pagination
+                        totalRecords={10}
+                        pageLimit={8}
+                        pageNeighbours={1}
+                        onPageChanged={this.onPageChanged}
+                    />
+                </div>
                 <table className="table table-striped" style={{marginTop: 20}}>
                     <thead>
                     <tr>
