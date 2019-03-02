@@ -1,5 +1,6 @@
 // Products create.component.js
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class Create extends Component {
     constructor(props) {
@@ -33,21 +34,33 @@ export default class Create extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-       // console.log("this.setState", this.setState);
-        console.log("this.state", this.state);
-        // e.preventDefault();
-        // console.log(`The values are ${this.state.name}, ${this.state.description}, and ${this.state.price}`);
-        // this.setState({
-        //     name: '',
-        //     description: '',
-        //     price:''
-        // })
+        const obj = {
+            name: this.state.name,
+            description: this.state.description,
+            price: this.state.price
+        };
+        axios.post('http://35.200.154.254:3000/products/create', obj)
+            .then(res =>{
+                console.log(res.data);
+                this.setState({ message: "Product added Successfully" });
+
+                }
+            );
+
+        this.setState({
+            message: null,
+            name: null,
+            description: null,
+            price: null
+        })
+
     }
     render() {
         return (
             <div style={{marginTop: 10}}>
+                <div className="text-success">{ this.state.message }</div>
                 <h3>Add New Product</h3>
-                <form>
+                <form onSubmit={this.onSubmit}>
                     <div className="form-group"
                          value={this.state.name}
                          onChange={this.onChangeName}>
@@ -64,10 +77,10 @@ export default class Create extends Component {
                          value={this.state.price}
                          onChange={this.onChangeprice}>
                         <label>Product Price: </label>
-                        <input required type="text" className="form-control"/>
+                        <input required type="number" className="form-control"/>
                     </div>
                     <div className="form-group">
-                        <input onClick={this.onSubmit} type="submit" value="Add Product" className="btn btn-primary"/>
+                        <input type="submit" value="Add Product" className="btn btn-primary"/>
                     </div>
                 </form>
             </div>
