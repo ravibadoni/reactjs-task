@@ -15,7 +15,7 @@ router.post('/create', function(req, res) {
 });
 //get all products list
 router.get('/all', function(req, res) {
-    Products.getallproducts(function(err, task) {
+    Products.getallproducts(1, function(err, task) {
         if (err){
             res.send(err);
         }else{
@@ -23,10 +23,19 @@ router.get('/all', function(req, res) {
         }
     });
 });
-// product detail Api
-router.post('/productdetail', function(req, res) {
-    console.log("reqqq", req.body);
-    Products.getproductdetail(req.body, function(err, task) {
+// pagination packages
+router.get('/paginate/:id', function(req, res) {
+    Products.getallproducts(req.params.id, function(err, task) {
+        if (err){
+            res.send(err);
+        }else{
+            res.send(task);
+        }
+    });
+});
+// search product
+router.post('/search', function(req, res) {
+    Products.searchproduct(req.body, function(err, task) {
         if (err){
             res.send(err);
         }else{
