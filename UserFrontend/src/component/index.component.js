@@ -12,7 +12,7 @@ export default class Index extends Component {
     }
     async componentDidMount() {
         try {
-            const response = await  axios.get('http://35.200.154.254:3000/products/all')
+            const response = await  axios.get('http://localhost:3000/products/all')
             await this.setState({business: response.data.data,totalRecords: response.data.totalProducts, response:true});
           } catch (err) {
             console.log(`Cannot GET data.`, err)
@@ -30,7 +30,7 @@ export default class Index extends Component {
         const { currentPage } = data;
         console.log("currentPage", currentPage);
         try {
-            axios.get('http://35.200.154.254:3000/products/paginate/'+currentPage)
+            axios.get('http://localhost:3000/products/paginate/'+currentPage)
             .then(response=>{
                 this.setState({business: response.data.data,totalRecords: response.data.totalProducts, response:true});
             });
@@ -44,7 +44,7 @@ export default class Index extends Component {
         e.preventDefault();
         const form = document.getElementById("search_text");
         const obj = {name: form.value};
-        axios.post('http://35.200.154.254:3000/products/search' , obj)
+        axios.post('http://localhost:3000/products/search' , obj)
         .then(response => {
             console.log("set state", this.state);
             console.log("====", response.data.data);

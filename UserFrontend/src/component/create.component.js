@@ -39,7 +39,7 @@ export default class Create extends Component {
             description: this.state.description,
             price: this.state.price
         };
-        axios.post('http://35.200.154.254:3000/products/create', obj)
+        axios.post('http://localhost:3000/products/create', obj)
             .then(res =>{
                 console.log(res.data);
                 this.setState({ message: "Product added Successfully" });
