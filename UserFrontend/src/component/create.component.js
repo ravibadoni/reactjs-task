@@ -43,22 +43,21 @@ export default class Create extends Component {
             .then(res =>{
                 console.log(res.data);
                 this.setState({ message: "Product added Successfully" });
-
                 }
             );
 
         this.setState({
-            message: null,
-            name: null,
-            description: null,
-            price: null
+            message: '',
+            name: '',
+            description: '',
+            price: ''
         })
 
     }
     render() {
         return (
             <div style={{marginTop: 10}}>
-                <div className="text-success">{ this.state.message }</div>
+                <h2 className="text-success">{ this.state.message }</h2>
                 <h3>Add New Product</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"
