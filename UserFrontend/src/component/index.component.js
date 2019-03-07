@@ -20,12 +20,20 @@ export default class Index extends Component {
 
     }
 
+    /**
+     * for getting data in table
+     * @returns {any[]}
+     */
     tabRow() {
         return this.state.business.map(function (object, i) {
              return <TableRow obj={object} key={i}/>;
         });
     }
 
+    /**
+     * pagination on page change function
+     * @param data
+     */
     onPageChanged = data => {
         const { currentPage } = data;
         console.log("currentPage", currentPage);
@@ -39,7 +47,10 @@ export default class Index extends Component {
         }
       };
 
-
+    /**
+     * search data functionality
+     * @param e
+     */
     onSubmit(e) {
         e.preventDefault();
         const form = document.getElementById("search_text");
@@ -55,17 +66,22 @@ export default class Index extends Component {
         })
     }
 
+    /**
+     * simple sorting ascending function
+     */
     sortAscending = () => {
-        const { business } = this.state.business;
-        business.sort((a, b) => a - b);
-        this.setState({ business:business })
-    };
-
+    const listing = this.state.business;
+    const sort = listing.reverse();
+    this.setState({ business: sort })
+}
+    /**
+     * simple sorting descending function
+     */
     sortDescending = () => {
-        const { business } = this.state.business;
-        business.sort((a, b) => a - b).reverse();
-        this.setState({ business:business })
-    };
+    const listing = this.state.business;
+    const sort = listing.reverse();
+    this.setState({ business: sort })
+}
 
     render() {
         const totalCount = this.state.totalRecords;
@@ -76,6 +92,8 @@ export default class Index extends Component {
             return (
                 <div>
                     <h3 align="center">Products List</h3>
+            <button className="btn btn-primary" onClick={this.sortAscending}>asc</button>
+            <button className="btn btn-primary" onClick={this.sortDescending}>desc</button>
                     <h4>Total products: {totalCount}</h4>
                     <form className="float-right" onSubmit={this.onSubmit}>
                         <div className="form-group"
